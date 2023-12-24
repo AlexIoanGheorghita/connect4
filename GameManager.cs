@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
 
     const string PLAYER1_TURN_MESSAGE = "Player 1's Turn";
     const string PLAYER2_TURN_MESSAGE = "Player 2's Turn";
-    Color PLAYER1_COLOR = new Color(0, 197, 31) / 255;
-    Color PLAYER2_COLOR = new Color(0, 139, 255) / 255;
+    Color PLAYER1_COLOR = new Color(0f / 255f, 197f / 255f, 31f / 255f, 1f);
+    Color PLAYER2_COLOR = new Color(0f / 255f, 139f / 255f, 255f / 255f, 1f);
 
     // initial configuration of the game. Player 1 starts when the game starts.
     private void Awake()
