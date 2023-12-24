@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     Color PLAYER1_COLOR = new Color(0f / 255f, 197f / 255f, 31f / 255f, 1f);
     Color PLAYER2_COLOR = new Color(0f / 255f, 139f / 255f, 255f / 255f, 1f);
 
+    Board board;
+
     // initial configuration of the game. Player 1 starts when the game starts.
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
         isGameFinished = false;
         playerTurnMessage.text = PLAYER1_TURN_MESSAGE;
         playerTurnMessage.color = PLAYER1_COLOR;
+        board = new Board();
         UnityEngine.Debug.Log(playerTurnMessage.text);
     }
 
@@ -81,7 +84,13 @@ public class GameManager : MonoBehaviour
                 // after we move the circle, we need to increase the height so that
                 // the next circle gets on top of it
                 hit.collider.gameObject.GetComponent<ColumnCollider>().targetPosition = new Vector3(endPosition.x, endPosition.y + 0.676f, endPosition.z);
-
+                board.UpdateBoard(hit.collider.gameObject.GetComponent<ColumnCollider>().column - 1, isPlayer1Turn);
+                if (board.hasWon(isPlayer1Turn))
+                {
+                    playerTurnMessage.text = (isPlayer1Turn ? "Player 1" : "Player 2") + " Wins!";
+                    isGameFinished = true;
+                    return;
+                }
 
                 // update UI
                 playerTurnMessage.text = !isPlayer1Turn ? PLAYER1_TURN_MESSAGE : PLAYER2_TURN_MESSAGE;
